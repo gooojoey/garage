@@ -1,0 +1,4 @@
+interface:
+  display_name: "WeChatStickers"
+  short_description: "微信表情全流程制作：确认风格和形象、设计动态表情、导出专辑物料"
+  default_prompt: "使用 $wechat-stickers 为我制作一套微信动态表情，先询问风格并设计形象，确认后再制作表情和专辑物料。"
