@@ -1,31 +1,41 @@
 # Garage
 
-## WeChatStickers
+我的 AI 创作工具箱。把日常创作中反复使用的流程整理成 Skill，方便自己复用，也方便分享给别人。
 
-微信表情专辑全流程 Skill：先询问风格、设计并确认角色，再制作动态表情与横幅、封面、聊天图标。包含动作连贯、道具语义、固定锚点、真透明背景的检查方法，以及可复现的导出与验证脚本。
+目前有两个技能：一个做微信表情，一个做公众号排版。可以分别下载、独立使用。
 
-- [下载 WeChatStickers.skill](WeChatStickers.skill)
-- [Skill 入口](skills/wechat-stickers/SKILL.md)
-- [规格与范围](skills/wechat-stickers/references/specifications.md)
-- [动作设计与修订](skills/wechat-stickers/references/animation.md)
-- [机械导出](skills/wechat-stickers/references/export.md)
+## 选一个开始
 
-显示名为 **WeChatStickers**，目录及调用名为 `wechat-stickers` / `$wechat-stickers`。`.skill` 是 ZIP，解压得到 `wechat-stickers` 目录；支持目录型技能的工具可将其放入相应技能目录。Codex 默认可放在用户的 `.codex/skills/` 下。具体加载方式以目标工具为准。
+| 技能 | 适合做什么 | 入口 |
+| --- | --- | --- |
+| **WeChatStickers** | 从角色形象到动态表情，再到横幅、封面和聊天图标 | [查看介绍](skills/wechat-stickers/) · [下载技能包](https://github.com/gooojoey/garage/raw/refs/heads/main/WeChatStickers.skill) |
+| **WeChatAccountaste** | 为已有公众号文章设计图文排版，保留原稿，输出可编辑 HTML | [查看介绍](skills/wechat-accountaste/) · [下载技能包](https://github.com/gooojoey/garage/raw/refs/heads/main/WeChatAccountaste.skill) |
 
-使用示例：**使用 $wechat-stickers 为我制作一套微信动态表情，先问风格并设计形象，确认后制作表情和专辑物料。** 绘画需要所在环境提供图像生成能力；附带脚本只做已生成素材的机械导出，依赖 Python 3.10+ 与 Pillow，不含模型、不自动抠图、不自动上传微信。规范数值源于用户提供的提交参数，非实时官方认证。包内不含私人照片或历史表情成品。
+## 怎么使用
 
-脚本自测：`python skills/wechat-stickers/scripts/test_export_assets.py`。
+1. 选择需要的技能，下载对应的 `.skill` 文件。
+2. 在支持 Skill 的 AI 工具中安装。如果工具不支持直接导入，可将文件按 ZIP 解压，再按该工具的方式安装其中的技能目录。
+3. 把你的素材和需求交给 AI，并指定使用这个技能。下面两句可以作为起点。
 
-## WeChatAccountaste
+**制作表情包**
 
-微信公众号排版审美 Skill。综合早期文艺、生活方式、知识与品牌账号的编辑经验，提供文艺阅读、视觉杂志、清晰行动、创意主题四种模式，同时保留微信可编辑结构与深色模式约束。
+> 使用 WeChatStickers，帮我把这张照片设计成一套微信动态表情。先问我喜欢的风格，确认形象后再制作。
 
-- [下载 WeChatAccountaste.skill](WeChatAccountaste.skill)
-- [Skill 入口](skills/wechat-accountaste/SKILL.md)
-- [审美系统](skills/wechat-accountaste/references/aesthetic-system.md)
-- [历史样本与阅读边界](skills/wechat-accountaste/references/source-notes.md)
-- [微信兼容规范](skills/wechat-accountaste/references/wechat-compatibility.md)
+**排版公众号文章**
 
-`.skill` 文件为 ZIP 格式，包含 `wechat-accountaste/SKILL.md` 与三个参考文件。需要目录型 Skill 的工具可解压后使用该目录；具体加载方式以目标工具为准。
+> 使用 WeChatAccountaste，为这篇文章做公众号排版。保留原文，不增加推广语，整体偏简洁的杂志风格。
 
-参考以2015—2017年为主，部分2019年材料补充。来源包括转存文章、历史分析及部分实际查看的版式图片；未完成所有账号的原生微信版式核验。数值为本 Skill 的设计默认值，不是品牌官方参数。第三方文章与图片未打包。
+支持 `$技能名` 的工具也可以使用 `$wechat-stickers` 或 `$wechat-accountaste` 调用。
+
+## 使用前知道这几件事
+
+- Skill 是交给 AI 的工作方法，需要在具备相应能力的工具中使用。表情制作需要图像生成与文件处理能力，公众号排版需要 HTML 输出能力。
+- 两个技能都不会自动替你发布到微信。交付后仍应检查最终文件及微信中的实际效果。
+- 微信提交要求可能变化，以当前后台为准。技能中的尺寸、排版参数和检查方法是工作起点，不代表平台审核承诺。
+- 使用真人照片、品牌形象或第三方图片时，请确认自己有权使用和分享。
+
+## 想看看里面怎么做
+
+每个技能的介绍页面向使用者；`SKILL.md` 是给 AI 执行的指令，`references/` 保存详细方法。WeChatStickers 还附有导出脚本和测试，详见它的[制作与导出说明](skills/wechat-stickers/references/export.md)。
+
+发现问题或有改进建议，欢迎[提交 Issue](https://github.com/gooojoey/garage/issues)。反馈时可附使用工具、预期效果和实际问题；请勿上传密码、证件或未经允许分享的照片。
