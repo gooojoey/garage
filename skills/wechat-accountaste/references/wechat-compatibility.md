@@ -31,7 +31,7 @@
 示例结构（示意，不是完整文章或已验证模板）：
 
 ```html
-<section style="width:100%;box-sizing:border-box;color:#333333;font-size:16px;line-height:1.8;">
+<section style="width:100%;box-sizing:border-box;color:#333333;font-size:14px;line-height:1.8;">
   <section style="padding:0 16px;">
     <p style="margin:0 0 20px;text-align:left;">在这里放原稿段落。</p>
     <p style="margin:36px 0 20px;font-size:20px;line-height:1.5;text-align:left;"><strong>原稿章节标题</strong></p>
