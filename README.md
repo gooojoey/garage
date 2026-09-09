@@ -2,7 +2,7 @@
 
 我的 AI 创作工具箱。把日常创作中反复使用的流程整理成 Skill，方便自己复用，也方便分享给别人。
 
-目前有两个技能：一个做微信表情，一个做公众号排版。可以分别下载、独立使用。
+目前有三个技能：一个做微信表情，一个做公众号排版，一个写公众号爆款推文。可以分别下载、独立使用。
 
 ## 选一个开始
 
@@ -10,6 +10,7 @@
 | --- | --- | --- |
 | **WeChatStickers** | 从角色形象到动态表情，再到横幅、封面和聊天图标 | [查看介绍](skills/wechat-stickers/) · [下载技能包](https://github.com/gooojoey/garage/raw/refs/heads/main/WeChatStickers.skill) |
 | **WeChatAccountaste** | 为已有公众号文章设计图文排版，保留原稿，输出可编辑 HTML | [查看介绍](skills/wechat-accountaste/) · [下载技能包](https://github.com/gooojoey/garage/raw/refs/heads/main/WeChatAccountaste.skill) |
+| **WeChatArticleWriting** | 写公众号推文、起爆款标题、拆解爆文，提炼标题八模式与正文结构 | [查看介绍](skills/wechat-article-writing/) · [下载技能包](https://github.com/gooojoey/garage/raw/refs/heads/main/WeChatArticleWriting.skill) |
 
 ## 怎么使用
 
@@ -25,7 +26,11 @@
 
 > 使用 WeChatAccountaste，为这篇文章做公众号排版。保留原文，不增加推广语，整体偏简洁的杂志风格。
 
-支持 `$技能名` 的工具也可以使用 `$wechat-stickers` 或 `$wechat-accountaste` 调用。
+**写公众号推文**
+
+> 使用 WeChatArticleWriting，帮我想 10 个关于「副业」的公众号标题，要带数字和反差点；再给一篇「年轻人为什么不爱打电话」的三段式推文草稿。
+
+支持 `$技能名` 的工具也可以使用 `$wechat-stickers`、`$wechat-accountaste` 或 `$wechat-article-writing` 调用。
 
 ## 使用前知道这几件事
 
