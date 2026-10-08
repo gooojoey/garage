@@ -11,7 +11,7 @@
 | **WeChatStickers** | 从角色形象到动态表情，再到横幅、封面和聊天图标 | [查看介绍](skills/wechat-stickers/) · [下载技能包](https://github.com/gooojoey/garage/raw/refs/heads/main/WeChatStickers.skill) |
 | **WeChatAccountaste** | 为已有公众号文章设计图文排版，保留原稿，输出可编辑 HTML | [查看介绍](skills/wechat-accountaste/) · [下载技能包](https://github.com/gooojoey/garage/raw/refs/heads/main/WeChatAccountaste.skill) |
 | **WeChatArticleWriting** | 写公众号推文、起爆款标题、拆解爆文，提炼标题八模式与正文结构 | [查看介绍](skills/wechat-article-writing/) · [下载技能包](https://github.com/gooojoey/garage/raw/refs/heads/main/WeChatArticleWriting.skill) |
-| **ChineseProseWriting** | 治 AI 的中文翻译腔，重建中文节奏，附文学技法与素材库；含可直接粘贴给 ChatGPT 的指令 | [查看介绍](skills/chinese-prose-writing/) · [下载技能包](https://github.com/gooojoey/garage/raw/refs/heads/main/ChineseProseWriting.skill) |
+| **ChineseProseWriting** | 治 AI 中文的翻译腔与文艺腔，把调门拉回现代中文；附文学技法与素材库，含可直接粘贴给 ChatGPT 的指令 | [查看介绍](skills/chinese-prose-writing/) · [下载技能包](https://github.com/gooojoey/garage/raw/refs/heads/main/ChineseProseWriting.skill) |
 
 ## 怎么使用
 
@@ -31,9 +31,11 @@
 
 > 使用 WeChatArticleWriting，帮我想 10 个关于「副业」的公众号标题，要带数字和反差点；再给一篇「年轻人为什么不爱打电话」的三段式推文草稿。
 
-**治中文翻译腔**
+**治中文毛病**
 
 > 使用 ChineseProseWriting，把下面这篇文章里的翻译腔改掉，保留原意和所有数字。（附稿）
+
+> 使用 ChineseProseWriting，这篇太文绉绉了，形容词和四字格太多。帮我降调成现代中文，别写成美文。
 
 如果用的是 ChatGPT 这类不支持 Skill 的工具，直接把 `skills/chinese-prose-writing/references/chatgpt-instructions.md` 里的**精简版指令**整段粘进「自定义指令」，就能长期生效。
 

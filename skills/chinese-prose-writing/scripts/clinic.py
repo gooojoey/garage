@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""中文欧化自检（clinic）
+"""中文文笔自检（clinic）
 
-把一段中文里的「英文机器翻译腔」逐类标出来，给出位置与改法提示。
+把一段中文里的两类毛病逐项标出来，给出位置与改法提示：
+
+  ① 翻译腔（欧化中文）——万能弱动词、被动泛滥、的的不休、连词堆砌、
+     抽象名词、前饰长定语、超长句、空转套话、网络腔设问、说教语气、
+     「地」滥用、见 when 就「当」
+  ② 文艺腔（文绉绉）——文言虚字、古雅词、古雅颜色词、模板句、
+     软化比喻词、公共意象、形容词串
 
 用法
 ----
@@ -12,8 +18,9 @@
 
 说明
 ----
-只做体检，不改稿。报告里的每一条都对应 references/anti-translation-ese.md
-中的一类病灶。命中不等于错，需人工判断。
+只做体检，不改稿。报告按「硬信号 / 软信号」标注：硬信号建议一律改，
+软信号（公共意象、软化比喻词、连词、超长句）用得好可以保留，需人工判断。
+对应的完整规则见 references/anti-translation-ese.md 与 references/modern-voice.md。
 """
 
 from __future__ import annotations
@@ -56,6 +63,36 @@ CLICHE = re.compile(
 
 # 6. 网络腔设问
 RHETORICAL = re.compile(r"(你有没有想过|你是否也曾|你是否想过|你可曾想过|你知道吗[，,]?$)")
+
+# ---------------------------------------------------------------- 文艺腔（降调）
+
+# 文言虚字（现代文里出现即为文绉绉；常见成语已排除）
+WENYAN_EMPTY = re.compile(
+    r"(亦(?!(步亦趋|云亦云))|皆(?!大欢喜)|乃|矣|焉|哉|岂|莫不|可谓|殊为|颇为|不啻|尚且|犹自)"
+)
+
+# 古雅形容词（已被用到失效的词）
+ARTY_WORD = re.compile(
+    r"(氤氲|缱绻|旖旎|阑珊|潋滟|葳蕤|岑寂|婆娑|绰约|缥缈|馥郁|泠泠|菡萏|踟蹰|茕茕|孑然)"
+)
+
+# 古雅颜色词
+ARTY_COLOR = re.compile(r"(绯|绛|缃|缥|靛|黛|缁|缟|檀|缇)")
+
+# 模板句 / 烂俗四字
+TEMPLATE_SENT = re.compile(
+    r"(岁月静好|时光温柔|山河远阔|人间清醒|万物可期|向光而行|熠熠生辉|温柔以待|"
+    r"如诗如画|五彩斑斓|美轮美奂|风姿绰约|仪态万千|诗和远方|星辰大海)"
+)
+
+# 软化比喻词（现代文里宜用「像」或不用）
+SOFT_SIMILE = re.compile(r"(仿若|宛如|犹如|恍若|恰似|宛若|好似)")
+
+# 公共意象（用得太多，等于没写）
+PUBLIC_IMAGE = re.compile(r"(月光|晚风|星辰|星空|旧巷|灯火|山海|泛黄的|微光|旧时光)")
+
+# 形容词串：连续两个以上「XX的、」
+ADJ_LIST = re.compile(r"([一-龥]{2}的[，、]){2,}")
 
 # 7. 保姆式说教
 NANNY = re.compile(r"(你可以理解为|简单来说|换句话说|说白了就是|也就是说)")
@@ -240,6 +277,49 @@ def run_checks(text: str):
             "语序自身能表时间：我走进房间，看见他",
         ))
 
+    # ------------------------------------------------------------ 文艺腔
+    for m in WENYAN_EMPTY.finditer(text):
+        findings.append((
+            "文言虚字", line_of(text, m.start()), "「%s」" % m.group(1), snippet(text, m),
+            "现代文不用这些虚字，直接删（成语如「皆大欢喜」除外）",
+        ))
+
+    for m in ARTY_WORD.finditer(text):
+        findings.append((
+            "古雅词", line_of(text, m.start()), "「%s」" % m.group(1), snippet(text, m),
+            "删掉，直接写那个具体的物或动作",
+        ))
+
+    for m in ARTY_COLOR.finditer(text):
+        findings.append((
+            "古雅颜色词", line_of(text, m.start()), "「%s」" % m.group(1), snippet(text, m),
+            "换红/深红/浅黄/淡青/青黑/黑；只在古典题材里保留",
+        ))
+
+    for m in TEMPLATE_SENT.finditer(text):
+        findings.append((
+            "模板句", line_of(text, m.start()), "「%s」" % m.group(1), snippet(text, m),
+            "整句删掉，改写一件具体发生的事",
+        ))
+
+    for m in SOFT_SIMILE.finditer(text):
+        findings.append((
+            "软化比喻词", line_of(text, m.start()), "「%s」" % m.group(1), snippet(text, m),
+            "换成「像」，或干脆不比喻",
+        ))
+
+    for m in PUBLIC_IMAGE.finditer(text):
+        findings.append((
+            "公共意象", line_of(text, m.start()), "「%s」" % m.group(1), snippet(text, m),
+            "全网都在写的意象；换成只有你写得出的私有物象",
+        ))
+
+    for m in ADJ_LIST.finditer(text):
+        findings.append((
+            "形容词串", line_of(text, m.start()), "连续两个以上「XX的」", snippet(text, m),
+            "同一名词前只留一个形容词，其余换成动作或物象",
+        ))
+
     # 段落首尾套话
     for i, para in enumerate(text.split("\n")):
         p = para.strip()
@@ -280,10 +360,25 @@ def stats(text: str):
 # ---------------------------------------------------------------- 报告
 
 ORDER = [
+    # —— 翻译腔 ——
     "万能弱动词", "被动泛滥", "的的不休", "连词堆砌", "抽象名词",
     "前饰长定语", "超长句", "空转套话", "段落开头套话", "结尾口号",
     "网络腔设问", "说教语气", "「地」滥用", "见when就「当」",
+    # —— 文艺腔 ——
+    "文言虚字", "古雅词", "古雅颜色词", "模板句", "软化比喻词",
+    "公共意象", "形容词串",
 ]
+
+TRANSLATION_ESE = {
+    "万能弱动词", "被动泛滥", "的的不休", "连词堆砌", "抽象名词",
+    "前饰长定语", "超长句", "空转套话", "段落开头套话", "结尾口号",
+    "网络腔设问", "说教语气", "「地」滥用", "见when就「当」",
+}
+
+ARTY_STYLE = {
+    "文言虚字", "古雅词", "古雅颜色词", "模板句", "软化比喻词",
+    "公共意象", "形容词串",
+}
 
 
 def report(text: str) -> str:
@@ -292,7 +387,7 @@ def report(text: str) -> str:
 
     lines = []
     lines.append("=" * 62)
-    lines.append("中文欧化自检报告（clinic）")
+    lines.append("中文文笔自检报告（clinic）· 翻译腔 + 文艺腔")
     lines.append("=" * 62)
     lines.append("")
     lines.append("【体检数据】")
@@ -305,14 +400,41 @@ def report(text: str) -> str:
         return "\n".join(lines)
 
     counter = Counter(f[0] for f in findings)
+    tn = sum(c for cat, c in counter.items() if cat in TRANSLATION_ESE)
+    an = sum(c for cat, c in counter.items() if cat in ARTY_STYLE)
+
     lines.append("【病灶分布】")
+    lines.append("  ── 翻译腔（结构病）  %d 处 ──" % tn)
     for cat in ORDER:
-        if counter.get(cat):
-            lines.append("  %-12s %d 处" % (cat, counter[cat]))
+        if cat in TRANSLATION_ESE and counter.get(cat):
+            lines.append("      %-12s %d" % (cat, counter[cat]))
+    if not tn:
+        lines.append("      （无）")
+    lines.append("  ── 文艺腔（调门病）  %d 处 ──" % an)
+    for cat in ORDER:
+        if cat in ARTY_STYLE and counter.get(cat):
+            lines.append("      %-12s %d" % (cat, counter[cat]))
+    if not an:
+        lines.append("      （无）")
     for cat, c in counter.items():
         if cat not in ORDER:
-            lines.append("  %-12s %d 处" % (cat, c))
+            lines.append("      %-12s %d" % (cat, c))
     lines.append("")
+
+    # 调门判语：先判断这两种病谁更重，再给对应文件
+    if tn >= 3 and an >= 3:
+        lines.append("【诊断】两种病同时存在。先祛翻译腔（改结构），再降调（删词）。")
+        lines.append("        先看 references/anti-translation-ese.md，再看 references/modern-voice.md。")
+        lines.append("")
+    elif an >= 3 and an > tn * 1.5:
+        lines.append("【诊断】文艺腔重于翻译腔。稿子的问题不是「像机翻」，是「端起来了」。")
+        lines.append("        优先做减法：删形容词、删古雅词、删模板句、换掉公共意象。")
+        lines.append("        看 references/modern-voice.md 第五节的降调表。")
+        lines.append("")
+    elif tn >= 3 and tn > an * 1.5:
+        lines.append("【诊断】翻译腔重于文艺腔。句子偏欧化：长、被动多、虚词层层叠加。")
+        lines.append("        看 references/anti-translation-ese.md。")
+        lines.append("")
 
     lines.append("【逐条明细】")
     cur = None
@@ -336,7 +458,11 @@ def report(text: str) -> str:
 
     lines.append("")
     lines.append("=" * 62)
-    lines.append("最后一步永远是朗读：读着结巴的地方，就是要改的地方。")
+    lines.append("信号说明：")
+    lines.append("  硬信号（建议一律改）：万能弱动词、被动泛滥、的的不休、文言虚字、")
+    lines.append("                       古雅词、古雅颜色词、模板句、形容词串")
+    lines.append("  软信号（用得好可保留）：公共意象、软化比喻词、连词、超长句")
+    lines.append("最后一步永远是朗读：读着结巴、或者不好意思念出来的地方，就是要改的地方。")
     lines.append("=" * 62)
     return "\n".join(lines)
 
