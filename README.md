@@ -2,7 +2,7 @@
 
 我的 AI 创作工具箱。把日常创作中反复使用的流程整理成 Skill，方便自己复用，也方便分享给别人。
 
-目前有四个技能：一个做微信表情，一个做公众号排版，一个写公众号爆款推文，一个治「AI 中文像英文机翻」的毛病。可以分别下载、独立使用。
+目前有五个技能：做微信表情、做公众号排版、写公众号推文、改善 AI 中文表达，以及轻量记录生活的三笔成长日记。可以按需选择、独立使用。
 
 ## 选一个开始
 
@@ -12,12 +12,13 @@
 | **WeChatAccountaste** | 为已有公众号文章设计图文排版，保留原稿，输出可编辑 HTML | [查看介绍](skills/wechat-accountaste/) · [下载技能包](https://github.com/gooojoey/garage/raw/refs/heads/main/WeChatAccountaste.skill) |
 | **WeChatArticleWriting** | 写公众号推文、起爆款标题、拆解爆文，提炼标题八模式与正文结构 | [查看介绍](skills/wechat-article-writing/) · [下载技能包](https://github.com/gooojoey/garage/raw/refs/heads/main/WeChatArticleWriting.skill) |
 | **ChineseProseWriting** | 治 AI 中文的翻译腔与文艺腔，把调门拉回现代中文；附文学技法与素材库，含可直接粘贴给 ChatGPT 的指令 | [查看介绍](skills/chinese-prose-writing/) · [下载技能包](https://github.com/gooojoey/garage/raw/refs/heads/main/ChineseProseWriting.skill) |
+| **三笔成长日记** | 记录日常、观察情绪与目标的联系，经同意后回顾变化、整理私密手记 | [查看介绍](skills/three-entry-growth-journal/) · [Skill 入口](skills/three-entry-growth-journal/SKILL.md) |
 
 ## 怎么使用
 
-1. 选择需要的技能，下载对应的 `.skill` 文件。
+1. 选择需要的技能，下载对应的 `.skill` 文件；没有打包文件的技能，可使用介绍页中的技能目录。
 2. 在支持 Skill 的 AI 工具中安装。如果工具不支持直接导入，可将文件按 ZIP 解压，再按该工具的方式安装其中的技能目录。
-3. 把你的素材和需求交给 AI，并指定使用这个技能。下面两句可以作为起点。
+3. 把你的素材和需求交给 AI，并指定使用这个技能。下面的示例可以作为起点。
 
 **制作表情包**
 
@@ -39,7 +40,11 @@
 
 如果用的是 ChatGPT 这类不支持 Skill 的工具，直接把 `skills/chinese-prose-writing/references/chatgpt-instructions.md` 里的**精简版指令**整段粘进「自定义指令」，就能长期生效。
 
-支持 `$技能名` 的工具也可以使用 `$wechat-stickers`、`$wechat-accountaste`、`$wechat-article-writing` 或 `$chinese-prose-writing` 调用。
+**写三笔成长日记**
+
+> 用三笔成长日记陪我记一下今天。一次只问我一个问题，保留我的说话方式。
+
+支持 `$技能名` 的工具也可以使用 `$wechat-stickers`、`$wechat-accountaste`、`$wechat-article-writing`、`$chinese-prose-writing` 或 `$three-entry-growth-journal` 调用。
 
 ## 使用前知道这几件事
 
